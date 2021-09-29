@@ -32,13 +32,13 @@ namespace ConvertNumberFrench
             this.textBoxFrench = new System.Windows.Forms.TextBox();
             this.textBoxArab = new System.Windows.Forms.TextBox();
             this.textBoxRus = new System.Windows.Forms.TextBox();
-            this.listBox1 = new System.Windows.Forms.ListBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.buttonConvert = new System.Windows.Forms.Button();
+            this.textBoxErrors = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // textBoxFrench
@@ -62,14 +62,6 @@ namespace ConvertNumberFrench
             this.textBoxRus.Name = "textBoxRus";
             this.textBoxRus.Size = new System.Drawing.Size(209, 20);
             this.textBoxRus.TabIndex = 2;
-            // 
-            // listBox1
-            // 
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.Location = new System.Drawing.Point(39, 292);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(184, 108);
-            this.listBox1.TabIndex = 4;
             // 
             // label1
             // 
@@ -125,19 +117,27 @@ namespace ConvertNumberFrench
             this.buttonConvert.TabIndex = 10;
             this.buttonConvert.Text = "Convert";
             this.buttonConvert.UseVisualStyleBackColor = true;
+            this.buttonConvert.Click += new System.EventHandler(this.buttonConvert_Click);
+            // 
+            // textBoxErrors
+            // 
+            this.textBoxErrors.Location = new System.Drawing.Point(39, 303);
+            this.textBoxErrors.Name = "textBoxErrors";
+            this.textBoxErrors.Size = new System.Drawing.Size(131, 20);
+            this.textBoxErrors.TabIndex = 11;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(388, 412);
+            this.Controls.Add(this.textBoxErrors);
             this.Controls.Add(this.buttonConvert);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.listBox1);
             this.Controls.Add(this.textBoxRus);
             this.Controls.Add(this.textBoxArab);
             this.Controls.Add(this.textBoxFrench);
@@ -154,13 +154,13 @@ namespace ConvertNumberFrench
         private System.Windows.Forms.TextBox textBoxFrench;
         private System.Windows.Forms.TextBox textBoxArab;
         private System.Windows.Forms.TextBox textBoxRus;
-        private System.Windows.Forms.ListBox listBox1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button buttonConvert;
+        private System.Windows.Forms.TextBox textBoxErrors;
     }
 }
 

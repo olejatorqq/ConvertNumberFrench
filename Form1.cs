@@ -21,6 +21,12 @@ namespace ConvertNumberFrench
         //Сотни
         public List<String> hundreds = new List<string>();
 
+        //Тысячи
+        public List<String> thousands = new List<string>();
+        
+        //Ошибки
+        public List<String> errors = new List<string>();
+
         public Form1()
         {
             InitializeComponent();
@@ -75,6 +81,52 @@ namespace ConvertNumberFrench
 
         }
 
+        private void ToRussian(int i)
+        {
+            StringBuilder sb = new StringBuilder();
+            while (i > 0)
+            {
+                Console.Out.WriteLine(i);
+                if (i >= 500)
+                {
+                    i -= 500;
+                    sb.Append("Ф");
+                    continue;
+                }
+                if ( i >= 100)
+                {
+                    i -= 100;
+                    sb.Append("Р");
+                    continue;
+                }
+                if (i >= 30)
+                {
+                    i -= 30;
+                    sb.Append("Л");
+                    continue;
+                }
+                if (i >= 8)
+                {
+                    i -= 8;
+                    sb.Append("И");
+                    continue;
+                }
+                if (i >= 2)
+                {
+                    i -= 2;
+                    sb.Append("В");
+                    continue;
+                }
+                if ( i>= 1)
+                {
+                    i -= 1;
+                    sb.Append("А");
+                    continue;
+                }
+            }
+            this.textBoxRus.Text = sb.ToString();
+        }
+
         private void Form1_Load(object sender, EventArgs e)
         {
 
@@ -93,6 +145,11 @@ namespace ConvertNumberFrench
         private void label2_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void buttonConvert_Click(object sender, EventArgs e)
+        {
+            
         }
     }
 }
