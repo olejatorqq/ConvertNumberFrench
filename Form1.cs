@@ -50,7 +50,6 @@ namespace ConvertNumberFrench
             units.Add("quatorze"); // 14
             units.Add("quinze"); // 15
             units.Add("seize"); // 16
-
             units.Add("dix-sept"); // 17
             units.Add("dix-huit"); // 18
             units.Add("dix-neuf"); // 19
@@ -58,21 +57,21 @@ namespace ConvertNumberFrench
             //20-99
 
             dozens.Add("vingt"); // 20
-            dozens.Add("vingt-et-un"); // 21
+            //dozens.Add("vingt-et-un"); // 21
             dozens.Add("trente"); //30
-            dozens.Add("trente-et-un"); //31
+            //dozens.Add("trente-et-un"); //31
             dozens.Add("quarante"); //40
-            dozens.Add("quarante-et-un"); //41
+            //dozens.Add("quarante-et-un"); //41
             dozens.Add("cinquantre"); // 50
-            dozens.Add("cinquantre-et-un"); //51
+            //dozens.Add("cinquantre-et-un"); //51
             dozens.Add("soixante"); // 60
-            dozens.Add("soixante-et-un"); // 61
+            //dozens.Add("soixante-et-un"); // 61
             dozens.Add("soixante-dix"); // 70
-            dozens.Add("soixante et onze"); // 71
+            //dozens.Add("soixante et onze"); // 71
             dozens.Add("quatre-vingts"); // 80
-            dozens.Add("quatre-vingt-un"); // 81
+            //dozens.Add("quatre-vingt-un"); // 81
             dozens.Add("quatre-vingt-dix"); // 90
-            dozens.Add("quatre-vingt-onze"); // 91
+            //dozens.Add("quatre-vingt-onze"); // 91
 
             //100 - 1000
 
@@ -150,6 +149,58 @@ namespace ConvertNumberFrench
         private void buttonConvert_Click(object sender, EventArgs e)
         {
             
+            this.textBoxArab.Text = "";
+            this.textBoxRus.Text = "";
+            this.textBoxErrors.Text = "";
+            int counterunits = 0;
+            int counterdozens = 0;
+            bool ErrorCheck = false;
+            int number = 0;
+            String[] parts = this.textBoxFrench.Text.Split(new char[] { ' ' },
+                StringSplitOptions.RemoveEmptyEntries).Select(s => s.ToLowerInvariant()).ToArray();
+            int[] num_array = new int[parts.Length];
+            int i = 0;
+            for(i = 0; i < parts.Length; i++)
+            {
+                if (units.Contains(parts[i])){
+                    if(counterunits == 0)
+                    {
+                        number += units.IndexOf(parts[i]);
+                        this.textBoxArab.Text = number.ToString();
+                        this.ToRussian(number);
+                        counterunits++;
+                        MessageBox.Show("МДа");
+                    }
+                    else
+                    {
+                        this.textBoxArab.Text = "";
+                        this.textBoxRus.Text = "";
+                        this.textBoxErrors.Text = "Несколько раз использован один разряд";
+                        break;
+                    }
+                    
+                }
+                else
+                {
+                    if (dozens.Contains(parts[i]))
+                    {
+                        if(counterdozens == 0)
+                        {
+                            number += (dozens.IndexOf(parts[i]) + 2 ) * 10;
+                            this.textBoxArab.Text = number.ToString();
+                            this.ToRussian(number);
+                            counterdozens++;
+                        }
+                        else
+                        {
+                            this.textBoxArab.Text = "";
+                            this.textBoxRus.Text = "";
+                            this.textBoxErrors.Text = "Несколько раз использован один разряд";
+                            break;
+                        }
+                    }
+                }
+            }
         }
     }
 }

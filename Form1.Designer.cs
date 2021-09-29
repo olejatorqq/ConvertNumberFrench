@@ -103,7 +103,7 @@ namespace ConvertNumberFrench
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(36, 276);
+            this.label5.Location = new System.Drawing.Point(12, 276);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(47, 13);
             this.label5.TabIndex = 9;
@@ -111,7 +111,7 @@ namespace ConvertNumberFrench
             // 
             // buttonConvert
             // 
-            this.buttonConvert.Location = new System.Drawing.Point(246, 292);
+            this.buttonConvert.Location = new System.Drawing.Point(266, 228);
             this.buttonConvert.Name = "buttonConvert";
             this.buttonConvert.Size = new System.Drawing.Size(110, 108);
             this.buttonConvert.TabIndex = 10;
@@ -121,16 +121,16 @@ namespace ConvertNumberFrench
             // 
             // textBoxErrors
             // 
-            this.textBoxErrors.Location = new System.Drawing.Point(39, 303);
+            this.textBoxErrors.Location = new System.Drawing.Point(8, 304);
             this.textBoxErrors.Name = "textBoxErrors";
-            this.textBoxErrors.Size = new System.Drawing.Size(131, 20);
+            this.textBoxErrors.Size = new System.Drawing.Size(232, 20);
             this.textBoxErrors.TabIndex = 11;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(388, 412);
+            this.ClientSize = new System.Drawing.Size(388, 355);
             this.Controls.Add(this.textBoxErrors);
             this.Controls.Add(this.buttonConvert);
             this.Controls.Add(this.label5);
