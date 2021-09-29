@@ -49,7 +49,7 @@ namespace ConvertNumberFrench
             units.Add("dix-huit"); // 18
             units.Add("dix-neuf"); // 19
 
-            //20-100
+            //20-99
 
             dozens.Add("vingt"); // 20
             dozens.Add("vingt-et-un"); // 21
@@ -62,6 +62,17 @@ namespace ConvertNumberFrench
             dozens.Add("soixante"); // 60
             dozens.Add("soixante-et-un"); // 61
             dozens.Add("soixante-dix"); // 70
+            dozens.Add("soixante et onze"); // 71
+            dozens.Add("quatre-vingts"); // 80
+            dozens.Add("quatre-vingt-un"); // 81
+            dozens.Add("quatre-vingt-dix"); // 90
+            dozens.Add("quatre-vingt-onze"); // 91
+
+            //100 - 1000
+
+            hundreds.Add("cent"); //100
+
+
         }
 
         private void Form1_Load(object sender, EventArgs e)
