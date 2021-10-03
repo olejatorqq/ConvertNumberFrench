@@ -17,7 +17,10 @@ namespace ConvertNumberFrench
 
         //Десятки
         public List<String> dozens = new List<string>();
-
+        
+        //11-19
+        public List<String> elenine = new List<string>();
+        
         //Сотни
         public List<String> hundreds = new List<string>();
 
@@ -163,43 +166,45 @@ namespace ConvertNumberFrench
             for(i = 0; i < parts.Length; i++)
             {
                 if (units.Contains(parts[i])){
-                    if(counterunits == 0)
+                    num_array[i] = units.IndexOf(parts[i]);
+                    if (num_array[i] == 0 && parts.Length > 1)
                     {
-                        number += units.IndexOf(parts[i]);
-                        this.textBoxArab.Text = number.ToString();
-                        this.ToRussian(number);
-                        counterunits++;
-                        MessageBox.Show("МДа");
-                    }
-                    else
-                    {
-                        this.textBoxArab.Text = "";
-                        this.textBoxRus.Text = "";
-                        this.textBoxErrors.Text = "Несколько раз использован один разряд";
+                        this.textBoxErrors.Text = "Zero не может использоваться совместно с другими символами";
+                        ErrorCheck = true;
                         break;
                     }
-                    
-                }
-                else
-                {
-                    if (dozens.Contains(parts[i]))
+                    if (i > 0)
                     {
-                        if(counterdozens == 0)
+                        if (num_array[i-1]> 0 && num_array[i - 1] < 19)
                         {
-                            number += (dozens.IndexOf(parts[i]) + 2 ) * 10;
-                            this.textBoxArab.Text = number.ToString();
-                            this.ToRussian(number);
-                            counterdozens++;
+                            this.textBoxErrors.Text = "Слова " + parts[i - 1] + " и " + parts[i] + " имеют одинаковый разряд";
+                            ErrorCheck = true;
+                            break;
                         }
-                        else
+                        if (i > 1 && num_array[i - 1] == 0)
                         {
-                            this.textBoxArab.Text = "";
-                            this.textBoxRus.Text = "";
-                            this.textBoxErrors.Text = "Несколько раз использован один разряд";
+                            this.textBoxErrors.Text = "Нельзя использовать " + parts[i];
+                            ErrorCheck = true;
                             break;
                         }
                     }
+                    number += units.IndexOf(parts[i]);
                 }
+
+
+
+                if (!ErrorCheck)
+                {
+                    this.textBoxArab.Text = number.ToString();
+                    this.ToRussian(number);
+                }
+                if (ErrorCheck)
+                {
+                    this.textBoxArab.Clear();
+                    this.textBoxRus.Clear();
+                    this.textBoxErrors.Visible = true;
+                }
+                
             }
         }
     }
