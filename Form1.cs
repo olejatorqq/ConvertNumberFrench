@@ -17,9 +17,12 @@ namespace ConvertNumberFrench
 
         //Десятки
         public List<String> dozens = new List<string>();
-        
+
         //11-19
         public List<String> elenine = new List<string>();
+
+        //Десятки c 1
+        public List<String> dozensune = new List<string>();
         
         //Сотни
         public List<String> hundreds = new List<string>();
@@ -60,21 +63,23 @@ namespace ConvertNumberFrench
             //20-99
 
             dozens.Add("vingt"); // 20
-            //dozens.Add("vingt-et-un"); // 21
-            dozens.Add("trente"); //30
-            //dozens.Add("trente-et-un"); //31
+            dozens.Add("trente"); //30         
             dozens.Add("quarante"); //40
-            //dozens.Add("quarante-et-un"); //41
             dozens.Add("cinquantre"); // 50
-            //dozens.Add("cinquantre-et-un"); //51
             dozens.Add("soixante"); // 60
-            //dozens.Add("soixante-et-un"); // 61
             dozens.Add("soixante-dix"); // 70
-            //dozens.Add("soixante et onze"); // 71
             dozens.Add("quatre-vingts"); // 80
-            //dozens.Add("quatre-vingt-un"); // 81
             dozens.Add("quatre-vingt-dix"); // 90
-            //dozens.Add("quatre-vingt-onze"); // 91
+
+
+            dozensune.Add("vingt-et-un"); // 21
+            dozensune.Add("trente-et-un"); //31
+            dozensune.Add("quarante-et-un"); //41
+            dozensune.Add("cinquantre-et-un"); //51
+            dozensune.Add("soixante-et-un"); // 61
+            dozensune.Add("soixante et onze"); // 71
+            dozensune.Add("quatre-vingt-un"); // 81
+            dozensune.Add("quatre-vingt-onze"); // 91
 
             //100 - 1000
 
@@ -173,9 +178,15 @@ namespace ConvertNumberFrench
                         ErrorCheck = true;
                         break;
                     }
+                    if (i == 0 && parts[i + 1] != "cent")
+                    {
+                        this.textBoxErrors.Text = "После слова " +parts[i] +" не может идти слово " + parts[i+1];
+                        ErrorCheck = true;
+                        break;
+                    }
                     if (i > 0)
                     {
-                        if (num_array[i-1]> 0 && num_array[i - 1] < 19)
+                        if (num_array[i - 1] > 0 && num_array[i - 1] < 19)
                         {
                             this.textBoxErrors.Text = "Слова " + parts[i - 1] + " и " + parts[i] + " имеют одинаковый разряд";
                             ErrorCheck = true;
@@ -187,8 +198,29 @@ namespace ConvertNumberFrench
                             ErrorCheck = true;
                             break;
                         }
+                        
+                        
                     }
                     number += units.IndexOf(parts[i]);
+                }
+                else
+                {
+                    if (dozensune.Contains(parts[i]))
+                    {
+                        number += (dozensune.IndexOf(parts[i]) + 2) * 10 + 1;
+                        num_array[i] = (dozensune.IndexOf(parts[i]) + 2) * 10 + 1;
+                        if (i < parts.Length - 1)
+                        {
+                            this.textBoxErrors.Text = "После " + parts[i] + " не должно ничего стоять ";
+                            ErrorCheck = true;
+                            break;
+                        }                      
+                    }
+                    if (dozens.Contains(parts[i]))
+                    {
+                        number += (dozens.IndexOf(parts[i] + 2)) * 10;
+                        num_array[i] = (dozens.IndexOf(parts[i] + 2)) * 10;
+                    }
                 }
 
 
