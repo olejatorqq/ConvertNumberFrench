@@ -61,25 +61,25 @@ namespace ConvertNumberFrench
             units.Add("dix-neuf"); // 19
 
             //20-99
-
+            
             dozens.Add("vingt"); // 20
             dozens.Add("trente"); //30         
             dozens.Add("quarante"); //40
-            dozens.Add("cinquantre"); // 50
+            dozens.Add("cinquante"); // 50
             dozens.Add("soixante"); // 60
             dozens.Add("soixante-dix"); // 70
             dozens.Add("quatre-vingts"); // 80
             dozens.Add("quatre-vingt-dix"); // 90
 
 
-            dozensune.Add("vingt-et-un"); // 21
-            dozensune.Add("trente-et-un"); //31
-            dozensune.Add("quarante-et-un"); //41
-            dozensune.Add("cinquantre-et-un"); //51
-            dozensune.Add("soixante-et-un"); // 61
-            dozensune.Add("soixante et onze"); // 71
-            dozensune.Add("quatre-vingt-un"); // 81
-            dozensune.Add("quatre-vingt-onze"); // 91
+            //dozensune.Add("vingt-et-un"); // 21
+            //dozensune.Add("trente-et-un"); //31
+            //dozensune.Add("quarante-et-un"); //41
+            //dozensune.Add("cinquantre-et-un"); //51
+            //dozensune.Add("soixante-et-un"); // 61
+            //dozensune.Add("soixante et onze"); // 71
+            //dozensune.Add("quatre-vingt-un"); // 81
+            //dozensune.Add("quatre-vingt-onze"); // 91
 
             //100 - 1000
 
@@ -160,16 +160,16 @@ namespace ConvertNumberFrench
             this.textBoxArab.Text = "";
             this.textBoxRus.Text = "";
             this.textBoxErrors.Text = "";
-            int counterunits = 0;
-            int counterdozens = 0;
             bool ErrorCheck = false;
             int number = 0;
-            String[] parts = this.textBoxFrench.Text.Split(new char[] { ' ' },
+            String[] parts = this.textBoxFrench.Text.Split(new char[] { ' ', '-' },
                 StringSplitOptions.RemoveEmptyEntries).Select(s => s.ToLowerInvariant()).ToArray();
             int[] num_array = new int[parts.Length];
             int i = 0;
             for(i = 0; i < parts.Length; i++)
             {
+
+
                 if (units.Contains(parts[i])){
                     num_array[i] = units.IndexOf(parts[i]);
                     if (num_array[i] == 0 && parts.Length > 1)
@@ -178,12 +178,12 @@ namespace ConvertNumberFrench
                         ErrorCheck = true;
                         break;
                     }
-                    if (i == 0 && parts[i + 1] != "cent")
-                    {
-                        this.textBoxErrors.Text = "После слова " +parts[i] +" не может идти слово " + parts[i+1];
-                        ErrorCheck = true;
-                        break;
-                    }
+                    //if (i == 0 && parts[i + 1] != "cent")
+                    //{
+                    //    this.textBoxErrors.Text = "После слова " +parts[i] +" не может идти слово " + parts[i+1];
+                    //    ErrorCheck = true;
+                    //    break;
+                    //}
                     if (i > 0)
                     {
                         if (num_array[i - 1] > 0 && num_array[i - 1] < 19)
@@ -192,34 +192,67 @@ namespace ConvertNumberFrench
                             ErrorCheck = true;
                             break;
                         }
-                        if (i > 1 && num_array[i - 1] == 0)
-                        {
-                            this.textBoxErrors.Text = "Нельзя использовать " + parts[i];
-                            ErrorCheck = true;
-                            break;
-                        }
+
                         
                         
                     }
+
                     number += units.IndexOf(parts[i]);
                 }
                 else
                 {
-                    if (dozensune.Contains(parts[i]))
+                    //if (dozensune.Contains(parts[i]))
+                    //{
+                    //    number += (dozensune.IndexOf(parts[i]) + 2) * 10 + 1;
+                    //    num_array[i] = (dozensune.IndexOf(parts[i]) + 2) * 10 + 1;
+                    //    if (i < parts.Length - 1)
+                    //    {
+                    //        this.textBoxErrors.Text = "После " + parts[i] + " не должно ничего стоять ";
+                    //        ErrorCheck = true;
+                    //        break;
+                    //    }
+                    //    if (i > 1)
+                    //    {
+                    //        if (dozens.Contains(parts[i - 1]))
+                    //        {
+                    //            this.textBoxErrors.Text = "Slova " + parts[i - 1] + " и " + parts[i] + " имеют одинаковый разряд";
+                    //            ErrorCheck = true;
+                    //            break;
+                    //        }
+                    //    }    
+                    //}
+                    if (dozens.Contains(parts[i]) && dozens.IndexOf(parts[i]) < 5)
                     {
-                        number += (dozensune.IndexOf(parts[i]) + 2) * 10 + 1;
-                        num_array[i] = (dozensune.IndexOf(parts[i]) + 2) * 10 + 1;
-                        if (i < parts.Length - 1)
+
+                        if (parts.Length > 1)
                         {
-                            this.textBoxErrors.Text = "После " + parts[i] + " не должно ничего стоять ";
-                            ErrorCheck = true;
-                            break;
-                        }                      
+                            if (units.IndexOf(parts[i + 1]) > 9) // СЮДА ЗАХОДИТ 70 + 
+                            {
+                                MessageBox.Show("Сюда не надо заходить");
+                                this.textBoxErrors.Text = "Использование несуществующего слова";
+                                ErrorCheck = true;
+                                break;
+                                }
+                            }
+                            
+                        if (parts.Length > 2)
+                        {
+                            if (parts[i + 1].Contains("et") && parts[i + 2].Contains("un"))
+                            {
+                                number += (dozens.IndexOf(parts[i]) + 2) * 10 + 1;
+                                num_array[i] = (dozens.IndexOf(parts[i]) + 2) * 10 + 1;
+                            }
+                        }
+                        else
+                        {
+                            number += (dozens.IndexOf(parts[i]) + 2) * 10;
+                            num_array[i] = (dozens.IndexOf(parts[i]) + 2) * 10;
+                         }   
                     }
-                    if (dozens.Contains(parts[i]))
+
+                    if (dozens.Contains(parts[i]) && (dozens.IndexOf(parts[i]) > 5 && dozens.IndexOf(parts[i]) < 8))
                     {
-                        number += (dozens.IndexOf(parts[i] + 2)) * 10;
-                        num_array[i] = (dozens.IndexOf(parts[i] + 2)) * 10;
+                      
                     }
                 }
 
